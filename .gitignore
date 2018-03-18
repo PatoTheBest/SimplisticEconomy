@@ -1,0 +1,14 @@
+### Intellij ###
+.idea
+/out/
+*.iml
+modules.xml
+.idea/misc.xml 
+*.ipr
+
+### Java ###
+*.class
+
+### Maven ###
+/target/
+dependency-reduced-pom.xml
