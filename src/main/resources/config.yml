@@ -1,0 +1,24 @@
+# Storage Section
+# Here you can specify where the player profiles will be saves
+# There is one option: MYSQL
+# MYSQL - will save the profile to the specified database
+storage:
+  type: FLATFILE
+  # Disable if running an offline server
+  use-uuids: true
+  # MySQL details (will be used only if the storage type is set to MYSQL)
+  # The MySQL user
+  username: root
+  # The MySQL password
+  password: ''
+  # The MySQL host
+  host: localhost
+  # The MySQL port
+  port: 3306
+  # The MySQL database
+  database: ecconomy
+
+# Economy section
+economy:
+  # The balance the players will start with
+  start-balance: 0.0

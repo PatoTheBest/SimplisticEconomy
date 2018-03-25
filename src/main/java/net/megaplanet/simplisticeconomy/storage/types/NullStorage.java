@@ -1,30 +1,23 @@
 package net.megaplanet.simplisticeconomy.storage.types;
 
 import net.megaplanet.simplisticeconomy.storage.IStorage;
-import net.megaplanet.simplisticeconomy.storage.StorageManager;
 import net.megaplanet.simplisticeconomy.storage.TransactionResponse;
 
-public class MySQLStorage implements IStorage {
-
-    private final StorageManager storageManager;
-
-    public MySQLStorage(StorageManager storageManager) {
-        this.storageManager = storageManager;
-    }
+public class NullStorage implements IStorage {
 
     @Override
     public TransactionResponse loadAccount(String player) {
-        return null;
+        return TransactionResponse.createFailureResponse("Unsupported storage");
     }
 
     @Override
     public TransactionResponse depositPlayer(String player, int amount) {
-        return null;
+        return TransactionResponse.createFailureResponse("Unsupported storage");
     }
 
     @Override
     public TransactionResponse withdrawPlayer(String player, int amount) {
-        return null;
+        return TransactionResponse.createFailureResponse("Unsupported storage");
     }
 
     @Override
