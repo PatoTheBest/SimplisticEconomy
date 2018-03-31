@@ -4,25 +4,31 @@ import com.sun.istack.internal.Nullable;
 
 public class TransactionResponse {
 
+    private final double amount;
+    private final double balance;
     private final TransactionResponseType transactionResponseType;
     private String failureReason;
 
-    public static TransactionResponse createSuccessResponse() {
-        return new TransactionResponse(TransactionResponseType.SUCCESS);
+    public static TransactionResponse createSuccessResponse(double amount, double balance) {
+        return new TransactionResponse(TransactionResponseType.SUCCESS, amount, balance);
     }
 
-    public static TransactionResponse createFailureResponse(String failureReason) {
-        return new TransactionResponse(TransactionResponseType.FAILURE, failureReason);
+    public static TransactionResponse createFailureResponse(String failureReason, double amount, double balance) {
+        return new TransactionResponse(TransactionResponseType.FAILURE, failureReason, amount, balance);
     }
 
-    private TransactionResponse(TransactionResponseType transactionResponseType) {
+    private TransactionResponse(TransactionResponseType transactionResponseType, double amount, double balance) {
         this.transactionResponseType = transactionResponseType;
+        this.amount = amount;
+        this.balance = balance;
     }
 
     /* private for builder methods */
-    private TransactionResponse(TransactionResponseType transactionResponseType, String failureReason) {
+    private TransactionResponse(TransactionResponseType transactionResponseType, String failureReason, double amount, double balance) {
         this.transactionResponseType = transactionResponseType;
         this.failureReason = failureReason;
+        this.amount = amount;
+        this.balance = balance;
     }
 
     /**
@@ -44,5 +50,13 @@ public class TransactionResponse {
      */
     public @Nullable String getFailureReason() {
         return failureReason;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 }

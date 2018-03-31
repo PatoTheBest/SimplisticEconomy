@@ -22,3 +22,5 @@ storage:
 economy:
   # The balance the players will start with
   start-balance: 0.0
+  currency-singular: 'dollar'
+  currency-plural: 'dollars'

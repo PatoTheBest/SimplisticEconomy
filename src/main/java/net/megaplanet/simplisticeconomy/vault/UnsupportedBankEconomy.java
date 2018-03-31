@@ -1,64 +1,64 @@
 package net.megaplanet.simplisticeconomy.vault;
 
-import net.milkbowl.vault.economy.AbstractEconomy;
+import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UnsupportedBankEconomy extends AbstractEconomy {
+public interface UnsupportedBankEconomy extends Economy {
 
     @Override
-    public boolean hasBankSupport() {
+    default boolean hasBankSupport() {
         return false;
     }
 
     @Override
-    public EconomyResponse createBank(String playerName, String paramString2) {
+    default EconomyResponse createBank(String playerName, String paramString2) {
         return createUnsupportedResponse();
     }
 
     @Override
-    public EconomyResponse deleteBank(String paramString) {
+    default EconomyResponse deleteBank(String paramString) {
         return createUnsupportedResponse();
     }
 
     @Override
-    public EconomyResponse bankBalance(String paramString) {
+    default EconomyResponse bankBalance(String paramString) {
         return createUnsupportedResponse();
     }
 
     @Override
-    public EconomyResponse bankHas(String paramString, double paramDouble) {
+    default EconomyResponse bankHas(String paramString, double paramDouble) {
         return createUnsupportedResponse();
     }
 
     @Override
-    public EconomyResponse bankWithdraw(String paramString, double paramDouble) {
+    default EconomyResponse bankWithdraw(String paramString, double paramDouble) {
         return createUnsupportedResponse();
     }
 
     @Override
-    public EconomyResponse bankDeposit(String paramString, double paramDouble) {
+    default EconomyResponse bankDeposit(String paramString, double paramDouble) {
         return createUnsupportedResponse();
     }
 
     @Override
-    public EconomyResponse isBankOwner(String paramString1, String paramString2) {
+    default EconomyResponse isBankOwner(String paramString1, String paramString2) {
         return createUnsupportedResponse();
     }
 
     @Override
-    public EconomyResponse isBankMember(String paramString1, String paramString2) {
+    default EconomyResponse isBankMember(String paramString1, String paramString2) {
         return createUnsupportedResponse();
     }
 
-    private EconomyResponse createUnsupportedResponse() {
+    default EconomyResponse createUnsupportedResponse() {
         return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "SimplisticEconomy does not support bank accounts");
     }
 
     @Override
-    public List<String> getBanks() {
+    default List<String> getBanks() {
         return new ArrayList<>();
     }
 

@@ -2,14 +2,20 @@ package net.megaplanet.simplisticeconomy.storage;
 
 public interface IStorage {
 
-    TransactionResponse loadAccount(String player);
+    void loadAccount(String player);
 
-    TransactionResponse depositPlayer(String player, int amount);
+    void unloadAccount(String player);
 
-    TransactionResponse withdrawPlayer(String player, int amount);
+    TransactionResponse depositPlayer(String player, double amount);
 
-    boolean hasEnough(String player, int amount);
+    TransactionResponse withdrawPlayer(String player, double amount);
 
-    double getBalance(String player, int amount);
+    boolean hasEnough(String player, double amount);
+
+    double getBalance(String player);
+
+    boolean createAccount(String player);
+
+    boolean hasAccount(String player);
 
 }

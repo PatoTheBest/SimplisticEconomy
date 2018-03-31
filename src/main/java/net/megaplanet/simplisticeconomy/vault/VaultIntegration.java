@@ -1,97 +1,81 @@
 package net.megaplanet.simplisticeconomy.vault;
 
+import net.megaplanet.simplisticeconomy.SimplisticEconomy;
+import net.megaplanet.simplisticeconomy.storage.TransactionResponse;
+import net.megaplanet.simplisticeconomy.storage.TransactionResponseType;
+import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
+public class VaultIntegration extends AbstractEconomy implements UnsupportedAccountNameEconomy, UnsupportedBankEconomy {
 
-public class VaultIntegration extends UnsupportedBankEconomy {
+    private final SimplisticEconomy plugin;
+
+    public VaultIntegration(SimplisticEconomy plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return plugin.isEnabled();
     }
 
     @Override
     public String getName() {
-        return null;
+        return plugin.getName();
     }
 
     @Override
     public int fractionalDigits() {
-        return 0;
+        return 2;
     }
 
     @Override
     public String format(double amount) {
-        return null;
+        return amount + "";
     }
 
     @Override
     public String currencyNamePlural() {
-        return null;
+        return plugin.getStorageManager().getCurrencyPlural();
     }
 
     @Override
     public String currencyNameSingular() {
-        return null;
+        return plugin.getStorageManager().getCurrencySingular();
     }
 
     @Override
     public boolean hasAccount(String playerName) {
-        return false;
-    }
-
-    @Override
-    public boolean hasAccount(String playerName, String accountName) {
-        return false;
+        return plugin.getStorageManager().getStorage().hasAccount(playerName);
     }
 
     @Override
     public double getBalance(String playerName) {
-        return 0;
-    }
-
-    @Override
-    public double getBalance(String playerName, String accountName) {
-        return 0;
+        return plugin.getStorageManager().getStorage().getBalance(playerName);
     }
 
     @Override
     public boolean has(String playerName, double amount) {
-        return false;
-    }
-
-    @Override
-    public boolean has(String playerName, String paramString2, double amount) {
-        return false;
+        return plugin.getStorageManager().getStorage().hasEnough(playerName, amount);
     }
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
-        return null;
-    }
-
-    @Override
-    public EconomyResponse withdrawPlayer(String playerName, String accountName, double amount) {
-        return null;
+        return transform(plugin.getStorageManager().getStorage().withdrawPlayer(playerName, amount));
     }
 
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
-        return null;
-    }
-
-    @Override
-    public EconomyResponse depositPlayer(String playerName, String accountName, double amount) {
-        return null;
+        return transform(plugin.getStorageManager().getStorage().depositPlayer(playerName, amount));
     }
 
     @Override
     public boolean createPlayerAccount(String playerName) {
-        return false;
+        return plugin.getStorageManager().getStorage().createAccount(playerName);
     }
 
-    @Override
-    public boolean createPlayerAccount(String playerName, String accountName) {
-        return false;
+    private EconomyResponse transform(TransactionResponse transactionResponse) {
+        EconomyResponse.ResponseType responseType = transactionResponse.getTransactionResponseType() == TransactionResponseType.SUCCESS ? EconomyResponse.ResponseType.SUCCESS : EconomyResponse.ResponseType.FAILURE;
+        return new EconomyResponse(transactionResponse.getAmount(), transactionResponse.getBalance(), responseType, transactionResponse.getFailureReason());
     }
 }
