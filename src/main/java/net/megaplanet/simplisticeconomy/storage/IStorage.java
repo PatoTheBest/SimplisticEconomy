@@ -16,7 +16,13 @@ public interface IStorage {
 
     double getBalance(String player);
 
-    boolean createAccount(String player);
+    /*
+       For vault
+     */
+    default boolean createAccount(String player) {
+        getBalance(player);
+        return true;
+    }
 
     boolean hasAccount(String player);
 

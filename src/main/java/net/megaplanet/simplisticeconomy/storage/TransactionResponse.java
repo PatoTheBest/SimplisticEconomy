@@ -23,8 +23,8 @@ public class TransactionResponse {
         this.balance = balance;
     }
 
-    /* private for builder methods */
-    private TransactionResponse(TransactionResponseType transactionResponseType, String failureReason, double amount, double balance) {
+    /* protected for builder methods */
+    TransactionResponse(TransactionResponseType transactionResponseType, String failureReason, double amount, double balance) {
         this.transactionResponseType = transactionResponseType;
         this.failureReason = failureReason;
         this.amount = amount;

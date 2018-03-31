@@ -38,7 +38,7 @@ public class PlayerAccount {
      *
      * @param balance the new balance
      */
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 }
