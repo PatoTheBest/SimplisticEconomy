@@ -13,6 +13,7 @@ public class StorageManager {
     private IStorage storage;
     private String currencySingular;
     private String currencyPlural;
+    private double startingBalance;
 
     public StorageManager(SimplisticEconomy plugin) {
         this.plugin = plugin;
@@ -25,6 +26,7 @@ public class StorageManager {
         useUUIDs = config.getBoolean("storage.use-uuids");
         currencySingular = config.getString("currency.currency-singular");
         currencyPlural = config.getString("currency.currency-singular");
+        startingBalance = config.getDouble("currency.starting-balance");
 
         if (storageType == null) {
             // unknown storage type
@@ -40,6 +42,8 @@ public class StorageManager {
                 storage = new NullStorage();
                 break;
         }
+
+        storage.enableStorage();
     }
 
     public IStorage getStorage() {
@@ -60,5 +64,9 @@ public class StorageManager {
 
     public String getCurrencyPlural() {
         return currencyPlural;
+    }
+
+    public double getStartingBalance() {
+        return startingBalance;
     }
 }

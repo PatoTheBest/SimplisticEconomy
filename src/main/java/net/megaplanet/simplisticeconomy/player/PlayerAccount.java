@@ -1,16 +1,15 @@
 package net.megaplanet.simplisticeconomy.player;
 
-import java.util.UUID;
-
 /**
  * The class responsible for storing the player's account information
  */
 public class PlayerAccount {
 
-    private PlayerIdentity accountHolder;
-    private int balance;
+    private final String accountHolder;
+    private double balance;
 
-    public PlayerAccount(int balance) {
+    public PlayerAccount(String accountHolder, double balance) {
+        this.accountHolder = accountHolder;
         this.balance = balance;
     }
 
@@ -19,7 +18,7 @@ public class PlayerAccount {
      *
      * @return the account's holder
      */
-    public PlayerIdentity getAccountHolder() {
+    public String getAccountHolder() {
         return accountHolder;
     }
 
@@ -28,7 +27,7 @@ public class PlayerAccount {
      *
      * @return the account's balance
      */
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 

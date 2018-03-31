@@ -44,4 +44,14 @@ public class NullStorage implements IStorage {
     public boolean hasAccount(String player) {
         return false;
     }
+
+    @Override
+    public void enableStorage() {
+
+    }
+
+    @Override
+    public void disableStorage() {
+
+    }
 }
