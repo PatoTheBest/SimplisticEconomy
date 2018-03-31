@@ -3,9 +3,7 @@
 # There is one option: MYSQL
 # MYSQL - will save the profile to the specified database
 storage:
-  type: FLATFILE
-  # Disable if running an offline server
-  use-uuids: true
+  type: MYSQL
   # MySQL details (will be used only if the storage type is set to MYSQL)
   # The MySQL user
   username: root
@@ -16,7 +14,7 @@ storage:
   # The MySQL port
   port: 3306
   # The MySQL database
-  database: ecconomy
+  database: economy
 
 # Economy section
 economy:

@@ -1,7 +1,5 @@
 package net.megaplanet.simplisticeconomy.storage;
 
-import com.sun.istack.internal.Nullable;
-
 public class TransactionResponse {
 
     private final double amount;
@@ -48,7 +46,7 @@ public class TransactionResponse {
      *
      * @return the failure reason
      */
-    public @Nullable String getFailureReason() {
+    public String getFailureReason() {
         return failureReason;
     }
 

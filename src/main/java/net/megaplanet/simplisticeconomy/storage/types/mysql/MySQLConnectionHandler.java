@@ -6,6 +6,7 @@ import net.megaplanet.simplisticeconomy.SimplisticEconomy;
 import net.megaplanet.simplisticeconomy.files.ConfigFile;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
@@ -33,11 +34,9 @@ public class MySQLConnectionHandler {
 
         plugin.getLogger().log(Level.INFO, "Attempting to connect to database...");
         try (Connection connection = getConnection()) {
-//            for (String createTableStatement : getCreateTableQueries()) {
-//                PreparedStatement statement = connection.prepareStatement(createTableStatement);
-//                statement.execute();
-//                statement.close();
-//            }
+            PreparedStatement statement = connection.prepareStatement(Queries.CREATE_TABLE);
+            statement.execute();
+            statement.close();
             plugin.getLogger().log(Level.INFO, "Successfully connected to mysql database");
         } catch (SQLException | HikariPool.PoolInitializationException e) {
             plugin.getLogger().log(Level.SEVERE, "Failed to connected to mysql database");
@@ -60,7 +59,6 @@ public class MySQLConnectionHandler {
     public void executeSQLQuery(SQLCallback callback) {
         executeSQLQuery(callback, false);
     }
-
 
     public void executeSQLQuery(SQLCallback callback, boolean async) {
         SQLTask task = new SQLTask(this, callback);

@@ -72,8 +72,8 @@ public class MySQLStorage implements IStorage {
 
         connectionHandler.executeSQLQuery(connection -> {
             PreparedStatement updateBalance = connection.prepareStatement(Queries.UPDATE_ADD);
-            updateBalance.setString(1, player);
-            updateBalance.setDouble(2, amount);
+            updateBalance.setDouble(1, amount);
+            updateBalance.setString(2, player);
             updateBalance.execute();
             updateBalance.close();
         }, loadedPlayers.containsKey(player));
@@ -96,8 +96,8 @@ public class MySQLStorage implements IStorage {
 
             connectionHandler.executeSQLQuery(connection -> {
                 PreparedStatement updateBalance = connection.prepareStatement(Queries.UPDATE_REMOVE);
-                updateBalance.setString(1, player);
-                updateBalance.setDouble(2, amount);
+                updateBalance.setDouble(1, amount);
+                updateBalance.setString(2, player);
                 updateBalance.execute();
                 updateBalance.close();
             }, loadedPlayers.containsKey(player));
