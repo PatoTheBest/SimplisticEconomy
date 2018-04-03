@@ -22,13 +22,15 @@ public class CommandPay extends CommandBase {
         Player player = CommandUtils.getPlayer(commandSender);
         IStorage storage = commandManager.getPlugin().getStorageManager().getStorage();
         int amount = CommandUtils.getInt(args, 1);
+        CommandUtils.validateTrue(amount > 0, "must-be-positive");
+        CommandUtils.validateTrue(!player.getName().equalsIgnoreCase(args[0]), "you-cannot-pay-yourself");
         CommandUtils.validateTrue(storage.hasEnough(player.getName(), amount), "not-enough-money");
 
         storage.withdrawPlayer(player.getName(), amount);
         storage.depositPlayer(args[0], amount);
         player.sendMessage(commandManager.getMessagesFile().getMessage("pay-command-sent").replace("%amount%", amount + "").replace("%player%", args[0]));
 
-        Player receiver = Bukkit.getPlayerExact(args[1]);
+        Player receiver = Bukkit.getPlayerExact(args[0]);
         if(receiver != null) {
             receiver.sendMessage(commandManager.getMessagesFile().getMessage("pay-command-received").replace("%amount%", amount + "").replace("%player%", player.getName()));
         }

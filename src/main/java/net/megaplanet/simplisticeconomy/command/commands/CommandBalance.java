@@ -23,7 +23,7 @@ public class CommandBalance extends CommandBase {
         IStorage storage = commandManager.getPlugin().getStorageManager().getStorage();
 
         double balance = storage.getBalance(player.getName());
-        player.sendMessage(commandManager.getMessagesFile().getMessage("balance-command-info")
+        player.sendMessage(commandManager.getMessagesFile().getMessage("balance-command-own")
         .replace("%amount%", balance + "")
         .replace("%currency%", commandManager.getPlugin().getStorageManager().getCurrencyPlural()));
     }

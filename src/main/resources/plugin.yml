@@ -1,6 +1,8 @@
 name: SimplisticEconomy
 version: 1.0
 main: net.megaplanet.simplisticeconomy.SimplisticEconomy
+load: STARTUP
+softdepend: [Vault]
 commands:
   pay:
   eco:

@@ -65,13 +65,13 @@ public class CommandManager implements CommandExecutor {
         arguments.remove(0);
 
         for (CommandBase commandBase : commands) {
-            if(commandBase.getCommand().equalsIgnoreCase(args[1])) {
-                return execute(commandSender, commandBase, (String[]) arguments.toArray(), commandLabel);
+            if(commandBase.getCommand().equalsIgnoreCase(args[0])) {
+                return execute(commandSender, commandBase, arguments.toArray(new String[arguments.size()]), commandLabel);
             }
 
             for (String alias : commandBase.getAliases()) {
                 if(alias.equalsIgnoreCase(commandLabel)) {
-                    return execute(commandSender, commandBase, (String[]) arguments.toArray(), commandLabel);
+                    return execute(commandSender, commandBase, arguments.toArray(new String[arguments.size()]), commandLabel);
                 }
             }
         }
@@ -91,14 +91,14 @@ public class CommandManager implements CommandExecutor {
             if (args.length < command.getMin()) {
                 commandSender.sendMessage(messagesFile.getMessage("too-few-arguments"));
                 commandSender.sendMessage(messagesFile.getMessage("usage")
-                        .replace("%usage%", parentCommand != null ? parentCommand + " " : "" + command.getCommand() + command.getUsage()));
+                        .replace("%usage%", "/" + (parentCommand != null ? parentCommand + " " : "") + command.getCommand() + " " + command.getUsage()));
                 return false;
             }
 
             if (command.getMax() != -1 && args.length > command.getMax()) {
                 commandSender.sendMessage(messagesFile.getMessage("too-many-arguments"));
                 commandSender.sendMessage(messagesFile.getMessage("usage")
-                        .replace("%usage%", parentCommand != null ? parentCommand + " " : "" + command.getCommand() + command.getUsage()));
+                        .replace("%usage%", "/" + (parentCommand != null ? parentCommand + " " : "") + command.getCommand() + " " + command.getUsage()));
                 return false;
             }
 

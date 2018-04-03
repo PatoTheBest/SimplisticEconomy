@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -21,8 +22,8 @@ public class PlayerManager implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerLogin(PlayerLoginEvent event) {
-        plugin.getStorageManager().getStorage().loadAccount(event.getPlayer().getName());
+    public void onPlayerLogin(AsyncPlayerPreLoginEvent event) {
+        plugin.getStorageManager().getStorage().loadAccount(event.getName());
     }
 
     @EventHandler

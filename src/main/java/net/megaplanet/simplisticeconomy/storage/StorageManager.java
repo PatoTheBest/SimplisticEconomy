@@ -24,9 +24,9 @@ public class StorageManager {
 
         StorageType storageType = Utils.getEnumValueFromString(StorageType.class, config.getString("storage.type"));
         useUUIDs = config.getBoolean("storage.use-uuids");
-        currencySingular = config.getString("currency.currency-singular");
-        currencyPlural = config.getString("currency.currency-singular");
-        startingBalance = config.getDouble("currency.starting-balance");
+        currencySingular = config.getString("economy.currency-singular");
+        currencyPlural = config.getString("economy.currency-plural");
+        startingBalance = config.getDouble("economy.starting-balance");
 
         if (storageType == null) {
             // unknown storage type

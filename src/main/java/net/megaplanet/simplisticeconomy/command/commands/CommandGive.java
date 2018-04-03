@@ -25,7 +25,7 @@ public class CommandGive extends CommandBase {
         storage.depositPlayer(args[0], amount);
         commandSender.sendMessage(commandManager.getMessagesFile().getMessage("give-command-sent").replace("%amount%", amount + "").replace("%player%", args[0]));
 
-        Player receiver = Bukkit.getPlayerExact(args[1]);
+        Player receiver = Bukkit.getPlayerExact(args[0]);
         if(receiver != null) {
             receiver.sendMessage(commandManager.getMessagesFile().getMessage("give-command-received").replace("%amount%", amount + "").replace("%player%", commandSender.getName()));
         }

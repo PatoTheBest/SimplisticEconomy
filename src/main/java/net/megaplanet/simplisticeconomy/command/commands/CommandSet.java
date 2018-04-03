@@ -25,7 +25,7 @@ public class CommandSet extends CommandBase {
         storage.setPlayerBalance(args[0], amount);
         commandSender.sendMessage(commandManager.getMessagesFile().getMessage("set-command-set").replace("%amount%", amount + "").replace("%player%", args[0]));
 
-        Player receiver = Bukkit.getPlayerExact(args[1]);
+        Player receiver = Bukkit.getPlayerExact(args[0]);
         if(receiver != null) {
             receiver.sendMessage(commandManager.getMessagesFile().getMessage("set-command-received").replace("%amount%", amount + "").replace("%player%", commandSender.getName()));
         }

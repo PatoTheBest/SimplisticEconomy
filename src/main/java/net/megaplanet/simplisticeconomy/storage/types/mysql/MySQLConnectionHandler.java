@@ -34,7 +34,7 @@ public class MySQLConnectionHandler {
 
         plugin.getLogger().log(Level.INFO, "Attempting to connect to database...");
         try (Connection connection = getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(Queries.CREATE_TABLE);
+            PreparedStatement statement = connection.prepareStatement(Queries.CREATE_TABLE.replace("%TABLE%", ((MySQLStorage)plugin.getStorageManager().getStorage()).getTableName()));
             statement.execute();
             statement.close();
             plugin.getLogger().log(Level.INFO, "Successfully connected to mysql database");

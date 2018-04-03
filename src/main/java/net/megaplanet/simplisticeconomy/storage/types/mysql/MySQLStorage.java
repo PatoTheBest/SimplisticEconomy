@@ -20,10 +20,12 @@ public class MySQLStorage implements IStorage {
     private final StorageManager storageManager;
     private final MySQLConnectionHandler connectionHandler;
     private final Map<String, PlayerAccount> loadedPlayers = new HashMap<>();
+    private String tableName;
 
     public MySQLStorage(StorageManager storageManager) {
         this.storageManager = storageManager;
         this.connectionHandler = new MySQLConnectionHandler(storageManager.getPlugin());
+        this.tableName = storageManager.getPlugin().getFileManager().getConfigFile().getString("storage.table");
     }
 
     @Override
@@ -35,7 +37,7 @@ public class MySQLStorage implements IStorage {
     }
 
     private PlayerAccount loadAccount(String player, Connection connection) throws SQLException {
-        PreparedStatement getAccountStatement = connection.prepareStatement(Queries.SELECT);
+        PreparedStatement getAccountStatement = connection.prepareStatement(replaceTable(Queries.SELECT));
         getAccountStatement.setString(1, player);
         ResultSet resultSet = getAccountStatement.executeQuery();
 
@@ -45,7 +47,7 @@ public class MySQLStorage implements IStorage {
             balance = resultSet.getDouble("balance");
         } else {
             balance = storageManager.getStartingBalance();
-            PreparedStatement insertRecord = connection.prepareStatement(Queries.INSERT);
+            PreparedStatement insertRecord = connection.prepareStatement(replaceTable(Queries.INSERT));
             insertRecord.setString(1, player);
             insertRecord.setDouble(2, balance);
             insertRecord.execute();
@@ -71,7 +73,7 @@ public class MySQLStorage implements IStorage {
         }
 
         connectionHandler.executeSQLQuery(connection -> {
-            PreparedStatement updateBalance = connection.prepareStatement(Queries.UPDATE_ADD);
+            PreparedStatement updateBalance = connection.prepareStatement(replaceTable(Queries.UPDATE_ADD));
             updateBalance.setDouble(1, amount);
             updateBalance.setString(2, player);
             updateBalance.execute();
@@ -88,7 +90,7 @@ public class MySQLStorage implements IStorage {
         }
 
         connectionHandler.executeSQLQuery(connection -> {
-            PreparedStatement updateBalance = connection.prepareStatement(Queries.UPDATE_SET);
+            PreparedStatement updateBalance = connection.prepareStatement(replaceTable(Queries.UPDATE_SET));
             updateBalance.setDouble(1, amount);
             updateBalance.setString(2, player);
             updateBalance.execute();
@@ -112,7 +114,7 @@ public class MySQLStorage implements IStorage {
             }
 
             connectionHandler.executeSQLQuery(connection -> {
-                PreparedStatement updateBalance = connection.prepareStatement(Queries.UPDATE_REMOVE);
+                PreparedStatement updateBalance = connection.prepareStatement(replaceTable(Queries.UPDATE_REMOVE));
                 updateBalance.setDouble(1, amount);
                 updateBalance.setString(2, player);
                 updateBalance.execute();
@@ -144,7 +146,7 @@ public class MySQLStorage implements IStorage {
         }
 
         connectionHandler.executeSQLQuery(connection -> {
-            PreparedStatement getAccountStatement = connection.prepareStatement(Queries.SELECT);
+            PreparedStatement getAccountStatement = connection.prepareStatement(replaceTable(Queries.SELECT));
             getAccountStatement.setString(1, player);
             ResultSet resultSet = getAccountStatement.executeQuery();
 
@@ -159,6 +161,10 @@ public class MySQLStorage implements IStorage {
         return atomicBoolean.get();
     }
 
+    private String replaceTable(String statement) {
+        return statement.replace("%TABLE%", tableName);
+    }
+
     @Override
     public void enableStorage() {
         connectionHandler.setupHikari();
@@ -167,5 +173,9 @@ public class MySQLStorage implements IStorage {
     @Override
     public void disableStorage() {
         connectionHandler.closeHikari();
+    }
+
+    public String getTableName() {
+        return tableName;
     }
 }

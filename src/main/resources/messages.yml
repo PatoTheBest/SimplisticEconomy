@@ -28,6 +28,8 @@ no-console: "This command can only be executed by players!"
 ############################################################
 # Pay command
 not-enough-money: "&cInsufficient funds"
+must-be-positive: "&cAmount must be greater than 0"
+you-cannot-pay-yourself: "&cYou cannot send money to yourself"
 pay-command-description: "Pays a player from your own money"
 pay-command-sent: "&6You sent &c%amount% &6to &c%player% "
 pay-command-received: "&6You have received &c%amount% &6from &c%player%"
