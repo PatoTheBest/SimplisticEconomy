@@ -37,3 +37,12 @@ pay-command-received: "&6You have received &c%amount% &6from &c%player%"
 # |                    Admin Commands                    | #
 # +------------------------------------------------------+ #
 ############################################################
+# Give command
+give-command-description: "Gives player money"
+give-command-sent: "&6You gave &c%amount% &6to &c%player% "
+give-command-received: "&6You have received &c%amount% &6from &c%player%"
+
+# Set command
+set-command-description: "Gives player money"
+set-command-set: "&6You &c%player%&6's balance to &c%amount%"
+set-command-received: "&6You had your balance set to &c%amount% &6by &c%player%"

@@ -11,6 +11,7 @@ class Queries {
             ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n";
 
     final static String INSERT = "INSERT INTO economy VALUES (?, ?)";
+    final static String UPDATE_SET = "UPDATE economy SET balance=? WHERE player_name=?";
     final static String UPDATE_ADD = "UPDATE economy SET balance=balance+? WHERE player_name=?";
     final static String UPDATE_REMOVE = "UPDATE economy SET balance=balance-? WHERE player_name=?";
     final static String SELECT = "SELECT balance FROM economy WHERE player_name=?";

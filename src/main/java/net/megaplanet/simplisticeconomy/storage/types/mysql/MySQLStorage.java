@@ -82,6 +82,23 @@ public class MySQLStorage implements IStorage {
     }
 
     @Override
+    public TransactionResponse setPlayerBalance(String player, double amount) {
+        if(loadedPlayers.containsKey(player)) {
+            loadedPlayers.get(player).setBalance(amount);
+        }
+
+        connectionHandler.executeSQLQuery(connection -> {
+            PreparedStatement updateBalance = connection.prepareStatement(Queries.UPDATE_SET);
+            updateBalance.setDouble(1, amount);
+            updateBalance.setString(2, player);
+            updateBalance.execute();
+            updateBalance.close();
+        }, loadedPlayers.containsKey(player));
+
+        return TransactionResponse.createSuccessResponse(amount, amount);
+    }
+
+    @Override
     public TransactionResponse withdrawPlayer(String player, double amount) {
         TransactionResponse transactionResponse;
         double initialBalance = getBalance(player);

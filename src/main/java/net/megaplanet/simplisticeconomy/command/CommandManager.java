@@ -1,7 +1,9 @@
 package net.megaplanet.simplisticeconomy.command;
 
 import net.megaplanet.simplisticeconomy.SimplisticEconomy;
+import net.megaplanet.simplisticeconomy.command.commands.CommandGive;
 import net.megaplanet.simplisticeconomy.command.commands.CommandPay;
+import net.megaplanet.simplisticeconomy.command.commands.CommandSet;
 import net.megaplanet.simplisticeconomy.files.MessagesFile;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,7 +22,13 @@ public class CommandManager implements CommandExecutor {
     public CommandManager(SimplisticEconomy plugin) {
         this.plugin = plugin;
         this.messagesFile = plugin.getFileManager().getMessagesFile();
-        this.commands.add(new CommandPay(this));
+
+        // user commands
+        this.commands.add(new CommandPay(this));;
+
+        // admin commands
+        this.commands.add(new CommandGive(this));;
+        this.commands.add(new CommandSet(this));
     }
 
     public void register() {

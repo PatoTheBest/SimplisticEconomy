@@ -21,6 +21,11 @@ public class NullStorage implements IStorage {
     }
 
     @Override
+    public TransactionResponse setPlayerBalance(String player, double amount) {
+        return TransactionResponse.createFailureResponse("Unsupported storage", 0, 0);
+    }
+
+    @Override
     public TransactionResponse withdrawPlayer(String player, double amount) {
         return TransactionResponse.createFailureResponse("Unsupported storage", 0, 0);
     }

@@ -8,6 +8,8 @@ public interface IStorage {
 
     TransactionResponse depositPlayer(String player, double amount);
 
+    TransactionResponse setPlayerBalance(String player, double amount);
+
     TransactionResponse withdrawPlayer(String player, double amount);
 
     default boolean hasEnough(String player, double amount) {
