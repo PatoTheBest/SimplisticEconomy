@@ -1,1 +1,39 @@
-# TODO
+############################################################
+# +------------------------------------------------------+ #
+# |                   Plugin Messages                    | #
+# +------------------------------------------------------+ #
+############################################################
+# General Command Messages
+page: "(Page %page% of %pages%)"
+invalid-page: "&cInvalid Page! (Page %page% of %pages%)"
+no-permission: "&cYou do not have permission to execute this command."
+something-went-wrong: "&cSomething went wrong while attempting to execute this command."
+command-correction: "&7Did you mean &6%correction%&7?"
+too-few-arguments: "&cToo few arguments"
+too-many-arguments: "&cToo many arguments"
+usage: "&cUsage: %usage%"
+unknown-flag: "&cUnknown flag %flag%"
+not-a-number: "&c'%string%' is not a number!"
+out-of-bounds: "Out of bounds!"
+no-results: "&cThere are no results."
+confirm: "Type &6/%base_command% confirm &7to confirm."
+confirm-desc: "Confirms an action"
+no-confirmation: "No action to be confirmed."
+no-console: "This command can only be executed by players!"
+
+############################################################
+# +------------------------------------------------------+ #
+# |                    User Commands                     | #
+# +------------------------------------------------------+ #
+############################################################
+# Pay command
+not-enough-money: "&cInsufficient funds"
+pay-command-description: "Pays a player from your own money"
+pay-command-sent: "&6You sent &c%amount% &6to &c%player% "
+pay-command-received: "&6You have received &c%amount% &6from &c%player%"
+
+############################################################
+# +------------------------------------------------------+ #
+# |                    Admin Commands                    | #
+# +------------------------------------------------------+ #
+############################################################

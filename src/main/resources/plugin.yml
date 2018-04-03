@@ -1,3 +1,8 @@
 name: SimplisticEconomy
 version: 1.0
 main: net.megaplanet.simplisticeconomy.SimplisticEconomy
+commands:
+  pay:
+  eco:
+  money:
+  bal
