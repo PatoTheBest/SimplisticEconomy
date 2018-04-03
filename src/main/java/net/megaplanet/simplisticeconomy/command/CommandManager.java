@@ -1,6 +1,7 @@
 package net.megaplanet.simplisticeconomy.command;
 
 import net.megaplanet.simplisticeconomy.SimplisticEconomy;
+import net.megaplanet.simplisticeconomy.command.commands.CommandBalance;
 import net.megaplanet.simplisticeconomy.command.commands.CommandGive;
 import net.megaplanet.simplisticeconomy.command.commands.CommandPay;
 import net.megaplanet.simplisticeconomy.command.commands.CommandSet;
@@ -24,10 +25,11 @@ public class CommandManager implements CommandExecutor {
         this.messagesFile = plugin.getFileManager().getMessagesFile();
 
         // user commands
-        this.commands.add(new CommandPay(this));;
+        this.commands.add(new CommandPay(this));
+        this.commands.add(new CommandBalance(this));
 
         // admin commands
-        this.commands.add(new CommandGive(this));;
+        this.commands.add(new CommandGive(this));
         this.commands.add(new CommandSet(this));
     }
 
@@ -35,6 +37,7 @@ public class CommandManager implements CommandExecutor {
         plugin.getCommand("pay").setExecutor(this);
         plugin.getCommand("money").setExecutor(this);
         plugin.getCommand("bal").setExecutor(this);
+        plugin.getCommand("balance").setExecutor(this);
         plugin.getCommand("eco").setExecutor(this);
     }
 
@@ -43,6 +46,12 @@ public class CommandManager implements CommandExecutor {
         for (CommandBase commandBase : commands) {
             if(commandBase.getCommand().equalsIgnoreCase(commandLabel)) {
                 return execute(commandSender, commandBase, args, null);
+            }
+
+            for (String alias : commandBase.getAliases()) {
+                if(alias.equalsIgnoreCase(commandLabel)) {
+                    return execute(commandSender, commandBase, args, null);
+                }
             }
         }
 
@@ -58,6 +67,12 @@ public class CommandManager implements CommandExecutor {
         for (CommandBase commandBase : commands) {
             if(commandBase.getCommand().equalsIgnoreCase(args[1])) {
                 return execute(commandSender, commandBase, (String[]) arguments.toArray(), commandLabel);
+            }
+
+            for (String alias : commandBase.getAliases()) {
+                if(alias.equalsIgnoreCase(commandLabel)) {
+                    return execute(commandSender, commandBase, (String[]) arguments.toArray(), commandLabel);
+                }
             }
         }
 

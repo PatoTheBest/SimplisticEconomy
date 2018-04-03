@@ -8,6 +8,7 @@ public abstract class CommandBase {
     private final String description;
     private final String permission;
     private final String usage;
+    private final String[] aliases;
     private final int min;
     private final int max;
 
@@ -16,6 +17,17 @@ public abstract class CommandBase {
         this.description = description;
         this.permission = permission;
         this.usage = usage;
+        this.min = min;
+        this.max = max;
+        this.aliases = new String[0];
+    }
+
+    public CommandBase(String name, String description, String permission, String usage, int min, int max, String[] aliases) {
+        this.name = name;
+        this.description = description;
+        this.permission = permission;
+        this.usage = usage;
+        this.aliases = aliases;
         this.min = min;
         this.max = max;
     }
@@ -44,5 +56,9 @@ public abstract class CommandBase {
 
     public int getMax() {
         return max;
+    }
+
+    public String[] getAliases() {
+        return aliases;
     }
 }

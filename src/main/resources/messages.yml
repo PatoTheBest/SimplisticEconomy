@@ -32,6 +32,10 @@ pay-command-description: "Pays a player from your own money"
 pay-command-sent: "&6You sent &c%amount% &6to &c%player% "
 pay-command-received: "&6You have received &c%amount% &6from &c%player%"
 
+# Balance command
+balance-command-description: "Checks your balance"
+balance-command-own: "&6Your balance is &c%amount% %currency%."
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                    Admin Commands                    | #
@@ -43,6 +47,6 @@ give-command-sent: "&6You gave &c%amount% &6to &c%player% "
 give-command-received: "&6You have received &c%amount% &6from &c%player%"
 
 # Set command
-set-command-description: "Gives player money"
+set-command-description: "Sets the player's balance"
 set-command-set: "&6You &c%player%&6's balance to &c%amount%"
 set-command-received: "&6You had your balance set to &c%amount% &6by &c%player%"
