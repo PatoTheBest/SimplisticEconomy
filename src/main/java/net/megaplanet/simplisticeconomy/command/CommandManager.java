@@ -34,7 +34,7 @@ public class CommandManager implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String commandLabel, String[] args) {
         for (CommandBase commandBase : commands) {
             if(commandBase.getCommand().equalsIgnoreCase(commandLabel)) {
-                return execute(commandSender, commandBase, args);
+                return execute(commandSender, commandBase, args, null);
             }
         }
 
@@ -49,7 +49,7 @@ public class CommandManager implements CommandExecutor {
 
         for (CommandBase commandBase : commands) {
             if(commandBase.getCommand().equalsIgnoreCase(args[1])) {
-                return execute(commandSender, commandBase, (String[]) arguments.toArray());
+                return execute(commandSender, commandBase, (String[]) arguments.toArray(), commandLabel);
             }
         }
 
@@ -58,7 +58,7 @@ public class CommandManager implements CommandExecutor {
         return false;
     }
 
-    private boolean execute(CommandSender commandSender, CommandBase command, String[] args) {
+    private boolean execute(CommandSender commandSender, CommandBase command, String[] args, String parentCommand) {
         try {
             if(!commandSender.hasPermission(command.getPermission())) {
                 commandSender.sendMessage(messagesFile.getMessage("no-permission"));
@@ -67,13 +67,15 @@ public class CommandManager implements CommandExecutor {
 
             if (args.length < command.getMin()) {
                 commandSender.sendMessage(messagesFile.getMessage("too-few-arguments"));
-                commandSender.sendMessage(messagesFile.getMessage("usage").replace("%usage%", command.getUsage()));
+                commandSender.sendMessage(messagesFile.getMessage("usage")
+                        .replace("%usage%", parentCommand != null ? parentCommand + " " : "" + command.getCommand() + command.getUsage()));
                 return false;
             }
 
             if (command.getMax() != -1 && args.length > command.getMax()) {
                 commandSender.sendMessage(messagesFile.getMessage("too-many-arguments"));
-                commandSender.sendMessage(messagesFile.getMessage("usage").replace("%usage%", command.getUsage()));
+                commandSender.sendMessage(messagesFile.getMessage("usage")
+                        .replace("%usage%", parentCommand != null ? parentCommand + " " : "" + command.getCommand() + command.getUsage()));
                 return false;
             }
 
