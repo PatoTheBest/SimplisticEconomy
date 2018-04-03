@@ -20,12 +20,14 @@ public class CommandManager implements CommandExecutor {
     public CommandManager(SimplisticEconomy plugin) {
         this.plugin = plugin;
         this.messagesFile = plugin.getFileManager().getMessagesFile();
+        this.commands.add(new CommandPay(this));
+    }
+
+    public void register() {
         plugin.getCommand("pay").setExecutor(this);
         plugin.getCommand("money").setExecutor(this);
         plugin.getCommand("bal").setExecutor(this);
         plugin.getCommand("eco").setExecutor(this);
-
-        this.commands.add(new CommandPay(this));
     }
 
     @Override
@@ -59,18 +61,19 @@ public class CommandManager implements CommandExecutor {
     private boolean execute(CommandSender commandSender, CommandBase command, String[] args) {
         try {
             if(!commandSender.hasPermission(command.getPermission())) {
-                commandSender.sendMessage(messagesFile.getMessage("too-few-arguments"));
+                commandSender.sendMessage(messagesFile.getMessage("no-permission"));
                 return false;
             }
 
             if (args.length < command.getMin()) {
                 commandSender.sendMessage(messagesFile.getMessage("too-few-arguments"));
-                commandSender.sendMessage(messagesFile.getMessage("usage").replace("usage", command.getUsage()));
+                commandSender.sendMessage(messagesFile.getMessage("usage").replace("%usage%", command.getUsage()));
                 return false;
             }
 
             if (command.getMax() != -1 && args.length > command.getMax()) {
-                commandSender.sendMessage(messagesFile.getMessage("no-permission"));
+                commandSender.sendMessage(messagesFile.getMessage("too-many-arguments"));
+                commandSender.sendMessage(messagesFile.getMessage("usage").replace("%usage%", command.getUsage()));
                 return false;
             }
 
