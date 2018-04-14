@@ -39,6 +39,11 @@ balance-command-description: "Checks your balance or other's balance"
 balance-command-own: "&6Your balance is &c%amount% %currency%."
 balance-command-other: "&c%player%'s &6balance is &c%amount% %currency%."
 
+# Balance top
+balance-top-command-description: "Checks your balance or other's balance"
+balance-top-command-header: "&7----- &6Top Balance Holders &7-----"
+balance-top-command-player: "&7&l%index%. &f%player &6- &e$%balance%"
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                    Admin Commands                    | #

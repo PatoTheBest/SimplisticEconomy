@@ -9,3 +9,6 @@ commands:
   money:
   bal:
   balance:
+  balancetop:
+  baltop:
+  moneytop:

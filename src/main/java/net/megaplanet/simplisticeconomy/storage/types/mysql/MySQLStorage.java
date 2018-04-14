@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -159,6 +160,25 @@ public class MySQLStorage implements IStorage {
         });
 
         return atomicBoolean.get();
+    }
+
+    @Override
+    public Map<String, Double> getTopBalance() {
+        Map<String, Double> top = new LinkedHashMap<>();
+
+        connectionHandler.executeSQLQuery(connection -> {
+            PreparedStatement getAccountStatement = connection.prepareStatement(replaceTable(Queries.SELECT_TOP_10));
+            ResultSet resultSet = getAccountStatement.executeQuery();
+
+            while (resultSet.next()) {
+                top.put(resultSet.getString("player_name"), resultSet.getDouble("balance"));
+            }
+
+            resultSet.close();
+            getAccountStatement.close();
+        });
+
+        return top;
     }
 
     private String replaceTable(String statement) {

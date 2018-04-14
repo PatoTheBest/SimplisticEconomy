@@ -1,5 +1,7 @@
 package net.megaplanet.simplisticeconomy.storage;
 
+import java.util.Map;
+
 public interface IStorage {
 
     void loadAccount(String player);
@@ -27,6 +29,8 @@ public interface IStorage {
     }
 
     boolean hasAccount(String player);
+
+    Map<String, Double> getTopBalance();
 
     void enableStorage();
 

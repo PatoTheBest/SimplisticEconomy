@@ -1,11 +1,9 @@
 package net.megaplanet.simplisticeconomy.command;
 
 import net.megaplanet.simplisticeconomy.SimplisticEconomy;
-import net.megaplanet.simplisticeconomy.command.commands.CommandBalance;
-import net.megaplanet.simplisticeconomy.command.commands.CommandGive;
-import net.megaplanet.simplisticeconomy.command.commands.CommandPay;
-import net.megaplanet.simplisticeconomy.command.commands.CommandSet;
+import net.megaplanet.simplisticeconomy.command.commands.*;
 import net.megaplanet.simplisticeconomy.files.MessagesFile;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,6 +25,7 @@ public class CommandManager implements CommandExecutor {
         // user commands
         this.commands.add(new CommandPay(this));
         this.commands.add(new CommandBalance(this));
+        this.commands.add(new CommandBalanceTop(this));
 
         // admin commands
         this.commands.add(new CommandGive(this));
@@ -39,6 +38,9 @@ public class CommandManager implements CommandExecutor {
         plugin.getCommand("bal").setExecutor(this);
         plugin.getCommand("balance").setExecutor(this);
         plugin.getCommand("eco").setExecutor(this);
+        plugin.getCommand("balancetop").setExecutor(this);
+        plugin.getCommand("baltop").setExecutor(this);
+        plugin.getCommand("moneytop").setExecutor(this);
     }
 
     @Override
@@ -82,36 +84,36 @@ public class CommandManager implements CommandExecutor {
     }
 
     private boolean execute(CommandSender commandSender, CommandBase command, String[] args, String parentCommand) {
-        try {
-            if(!commandSender.hasPermission(command.getPermission())) {
-                commandSender.sendMessage(messagesFile.getMessage("no-permission"));
-                return false;
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            try {
+                if(!commandSender.hasPermission(command.getPermission())) {
+                    commandSender.sendMessage(messagesFile.getMessage("no-permission"));
+                    return;
+                }
+
+                if (args.length < command.getMin()) {
+                    commandSender.sendMessage(messagesFile.getMessage("too-few-arguments"));
+                    commandSender.sendMessage(messagesFile.getMessage("usage")
+                            .replace("%usage%", "/" + (parentCommand != null ? parentCommand + " " : "") + command.getCommand() + " " + command.getUsage()));
+                    return;
+                }
+
+                if (command.getMax() != -1 && args.length > command.getMax()) {
+                    commandSender.sendMessage(messagesFile.getMessage("too-many-arguments"));
+                    commandSender.sendMessage(messagesFile.getMessage("usage")
+                            .replace("%usage%", "/" + (parentCommand != null ? parentCommand + " " : "") + command.getCommand() + " " + command.getUsage()));
+                    return;
+                }
+
+                command.onCommand(commandSender, args);
+            } catch (CommandException commandException) {
+                commandSender.sendMessage(messagesFile.getMessage(commandException.getMessage()));
+            } catch (Exception e) {
+                commandSender.sendMessage(messagesFile.getMessage("something-went-wrong"));
+                e.printStackTrace();
             }
-
-            if (args.length < command.getMin()) {
-                commandSender.sendMessage(messagesFile.getMessage("too-few-arguments"));
-                commandSender.sendMessage(messagesFile.getMessage("usage")
-                        .replace("%usage%", "/" + (parentCommand != null ? parentCommand + " " : "") + command.getCommand() + " " + command.getUsage()));
-                return false;
-            }
-
-            if (command.getMax() != -1 && args.length > command.getMax()) {
-                commandSender.sendMessage(messagesFile.getMessage("too-many-arguments"));
-                commandSender.sendMessage(messagesFile.getMessage("usage")
-                        .replace("%usage%", "/" + (parentCommand != null ? parentCommand + " " : "") + command.getCommand() + " " + command.getUsage()));
-                return false;
-            }
-
-            command.onCommand(commandSender, args);
-            return true;
-        } catch (CommandException commandException) {
-            commandSender.sendMessage(messagesFile.getMessage(commandException.getMessage()));
-        } catch (Exception e) {
-            commandSender.sendMessage(messagesFile.getMessage("something-went-wrong"));
-            e.printStackTrace();
-        }
-
-        return false;
+        });
+        return true;
     }
 
     public SimplisticEconomy getPlugin() {

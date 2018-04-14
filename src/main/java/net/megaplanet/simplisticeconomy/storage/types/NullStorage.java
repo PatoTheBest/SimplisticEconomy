@@ -3,6 +3,8 @@ package net.megaplanet.simplisticeconomy.storage.types;
 import net.megaplanet.simplisticeconomy.storage.IStorage;
 import net.megaplanet.simplisticeconomy.storage.TransactionResponse;
 
+import java.util.Map;
+
 public class NullStorage implements IStorage {
 
     @Override
@@ -48,6 +50,11 @@ public class NullStorage implements IStorage {
     @Override
     public boolean hasAccount(String player) {
         return false;
+    }
+
+    @Override
+    public Map<String, Double> getTopBalance() {
+        return null;
     }
 
     @Override
