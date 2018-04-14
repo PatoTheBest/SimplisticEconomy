@@ -15,7 +15,7 @@ public class CommandBalanceTop extends CommandBase {
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
     public CommandBalanceTop(CommandManager commandManager) {
-        super("balancetop", "balance-top-command-description", "se.balancetop", "[player]", 0, 1, new String[] {"baltop", "moneytop"});
+        super("balancetop", "balance-top-command-description", "se.balancetop", "", 0, 0, new String[] {"baltop", "moneytop"});
         this.commandManager = commandManager;
     }
 

@@ -6,6 +6,7 @@ import net.megaplanet.simplisticeconomy.storage.IStorage;
 import net.megaplanet.simplisticeconomy.util.CommandUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -24,6 +25,13 @@ public class CommandBalance extends CommandBase {
     public void onCommand(CommandSender commandSender, String[] args) {
         String playerToCheck = args.length == 1 ? args[0] : commandSender.getName();
         boolean ownBalance = commandSender.getName().equalsIgnoreCase(playerToCheck);
+
+        if(ownBalance && commandSender instanceof ConsoleCommandSender) {
+            commandSender.sendMessage(commandManager.getMessagesFile().getMessage("usage")
+                    .replace("%usage%", "/bal <player>"));
+            return;
+        }
+
         IStorage storage = commandManager.getPlugin().getStorageManager().getStorage();
 
         double balance = storage.getBalance(playerToCheck);
