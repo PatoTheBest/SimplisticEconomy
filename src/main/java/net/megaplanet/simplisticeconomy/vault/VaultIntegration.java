@@ -6,9 +6,12 @@ import net.megaplanet.simplisticeconomy.storage.TransactionResponseType;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
+import java.text.DecimalFormat;
+
 public class VaultIntegration extends AbstractEconomy implements UnsupportedAccountNameEconomy, UnsupportedBankEconomy {
 
     private final SimplisticEconomy plugin;
+    private static DecimalFormat df2 = new DecimalFormat(".##");
 
     public VaultIntegration(SimplisticEconomy plugin) {
         this.plugin = plugin;
@@ -31,7 +34,7 @@ public class VaultIntegration extends AbstractEconomy implements UnsupportedAcco
 
     @Override
     public String format(double amount) {
-        return amount + "";
+        return df2.format(amount);
     }
 
     @Override
