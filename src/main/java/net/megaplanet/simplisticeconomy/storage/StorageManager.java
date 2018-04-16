@@ -46,6 +46,10 @@ public class StorageManager {
         storage.enableStorage();
     }
 
+    public void disable() {
+        storage.disableStorage();
+    }
+
     public IStorage getStorage() {
         return storage;
     }

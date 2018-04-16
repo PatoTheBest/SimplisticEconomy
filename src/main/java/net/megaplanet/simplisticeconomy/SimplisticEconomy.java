@@ -24,6 +24,11 @@ public class SimplisticEconomy extends JavaPlugin {
         commandManager.register();
     }
 
+    @Override
+    public void onDisable() {
+        storageManager.disable();
+    }
+
     public FileManager getFileManager() {
         return fileManager;
     }
