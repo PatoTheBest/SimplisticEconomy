@@ -31,13 +31,13 @@ not-enough-money: "&cInsufficient funds"
 must-be-positive: "&cAmount must be greater than 0"
 you-cannot-pay-yourself: "&cYou cannot send money to yourself"
 pay-command-description: "Pays a player from your own money"
-pay-command-sent: "&6You sent &c%amount% &6to &c%player% "
-pay-command-received: "&6You have received &c%amount% &6from &c%player%"
+pay-command-sent: "&7You sent &6%amount% &7to &6%player% "
+pay-command-received: "&7You have received &6%amount% &7from &6%player%"
 
 # Balance command
 balance-command-description: "Checks your balance or other's balance"
-balance-command-own: "&6Your balance is &c%amount% %currency%."
-balance-command-other: "&c%player%'s &6balance is &c%amount% %currency%."
+balance-command-own: "&7Your balance is &6%amount% %currency%."
+balance-command-other: "&6%player%'s &7balance is &6%amount% %currency%."
 
 # Balance top
 balance-top-command-description: "Checks your balance or other's balance"
@@ -51,10 +51,10 @@ balance-top-command-player: "&7&l%index%. &f%player% &6- &e$%balance%"
 ############################################################
 # Give command
 give-command-description: "Gives player money"
-give-command-sent: "&6You gave &c%amount% &6to &c%player% "
-give-command-received: "&6You have received &c%amount% &6from &c%player%"
+give-command-sent: "&7You gave &6%amount% &7to &6%player% "
+give-command-received: "&7You have received &6%amount% &7from &6%player%"
 
 # Set command
 set-command-description: "Sets the player's balance"
-set-command-set: "&6You &c%player%&6's balance to &c%amount%"
-set-command-received: "&6You had your balance set to &c%amount% &6by &c%player%"
+set-command-set: "&7You &6%player%&7's balance to &6%amount%"
+set-command-received: "&7You had your balance set to &6%amount% &7by &6%player%"
