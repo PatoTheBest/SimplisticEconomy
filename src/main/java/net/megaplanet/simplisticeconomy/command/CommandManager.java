@@ -59,7 +59,7 @@ public class CommandManager implements CommandExecutor {
 
         if(args.length == 0) {
             // display help
-            commandSender.sendMessage("help todo");
+            showHelp(commandSender, commandLabel);
             return false;
         }
 
@@ -79,7 +79,7 @@ public class CommandManager implements CommandExecutor {
         }
 
         // display help
-        commandSender.sendMessage("help todo");
+        showHelp(commandSender, commandLabel);
         return false;
     }
 
@@ -114,6 +114,15 @@ public class CommandManager implements CommandExecutor {
             }
         });
         return true;
+    }
+
+    private void showHelp(CommandSender commandSender, String commandBase) {
+        commandSender.sendMessage(messagesFile.getMessage("help-header"));
+        for (CommandBase command : commands) {
+            commandSender.sendMessage(messagesFile.getMessage("help-command")
+            .replace("%command%", commandBase + " " + command.getCommand() + (command.getUsage() != null ? " " + command.getUsage() : ""))
+            .replace("%description%", messagesFile.getMessage(command.getDescription())));
+        }
     }
 
     public SimplisticEconomy getPlugin() {
