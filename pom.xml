@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Bukkit version the plugin will be compiled with -->
-        <bukkitVersion>1.12-R0.1-SNAPSHOT</bukkitVersion>
+        <bukkitVersion>1.15.1-R0.1-SNAPSHOT</bukkitVersion>
     </properties>
 
 
@@ -20,12 +20,12 @@
         <!-- SpigotMC Repo (Bukkit and SpigotAPI) -->
         <repository>
             <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/groups/public</url>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <!-- Vault Repo -->
         <repository>
             <id>vault-repo</id>
-            <url>https://dl.bintray.com/scarsz/maven</url>
+            <url>https://ci.ender.zone/plugin/repository/everything/</url>
         </repository>
     </repositories>
 
@@ -51,9 +51,9 @@
         <!-- Vault - Vault is a Permissions, Chat, & Economy API to give plugins easy hooks into these systems. -->
         <!-- https://dev.bukkit.org/projects/vault -->
         <dependency>
-            <groupId>com.scarsz</groupId>
+            <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>1.5</version>
+            <version>1.7</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
