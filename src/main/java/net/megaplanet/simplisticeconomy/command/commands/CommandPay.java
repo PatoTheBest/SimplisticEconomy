@@ -19,8 +19,16 @@ public class CommandPay extends CommandBase {
 
     @Override
     public void onCommand(CommandSender commandSender, String[] args) {
+        Player receiver = Bukkit.getPlayerExact(args[0]);
         Player player = CommandUtils.getPlayer(commandSender);
+
         IStorage storage = commandManager.getPlugin().getStorageManager().getStorage();
+
+        if (!storage.hasAccount(args[0])) {
+            player.sendMessage("§cNo player found with name '"+ args[0] +"'");
+            return;
+        }
+
         int amount = CommandUtils.getInt(args, 1);
         CommandUtils.validateTrue(amount > 0, "must-be-positive");
         CommandUtils.validateTrue(!player.getName().equalsIgnoreCase(args[0]), "you-cannot-pay-yourself");
@@ -30,7 +38,6 @@ public class CommandPay extends CommandBase {
         storage.depositPlayer(args[0], amount);
         player.sendMessage(commandManager.getMessagesFile().getMessage("pay-command-sent").replace("%amount%", amount + "").replace("%player%", args[0]));
 
-        Player receiver = Bukkit.getPlayerExact(args[0]);
         if(receiver != null) {
             receiver.sendMessage(commandManager.getMessagesFile().getMessage("pay-command-received").replace("%amount%", amount + "").replace("%player%", player.getName()));
         }
