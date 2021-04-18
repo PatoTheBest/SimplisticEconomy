@@ -24,15 +24,15 @@ public class CommandPay extends CommandBase {
 
         IStorage storage = commandManager.getPlugin().getStorageManager().getStorage();
 
-        if (!storage.hasAccount(args[0])) {
-            player.sendMessage("§cNo player found with name '"+ args[0] +"'");
-            return;
-        }
-
         int amount = CommandUtils.getInt(args, 1);
         CommandUtils.validateTrue(amount > 0, "must-be-positive");
         CommandUtils.validateTrue(!player.getName().equalsIgnoreCase(args[0]), "you-cannot-pay-yourself");
         CommandUtils.validateTrue(storage.hasEnough(player.getName(), amount), "not-enough-money");
+
+        if (!storage.hasAccount(args[0])) {
+            player.sendMessage(commandManager.getMessagesFile().getMessage("player-not-in-db").replace("%player%", args[0]));
+            return;
+        }
 
         storage.withdrawPlayer(player.getName(), amount);
         storage.depositPlayer(args[0], amount);

@@ -16,6 +16,7 @@ no-confirmation: "No action to be confirmed."
 no-console: "This command can only be executed by players!"
 help-header: "&7----- &6SimplisticEconomy Help &7-----"
 help-command: "&e/%command% &f- &7%description%"
+player-not-in-db: "&cNo player found with name '%player%'"
 
 ############################################################
 # +------------------------------------------------------+ #
