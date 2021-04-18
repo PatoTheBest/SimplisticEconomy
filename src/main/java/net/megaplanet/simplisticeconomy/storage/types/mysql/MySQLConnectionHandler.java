@@ -15,6 +15,7 @@ public class MySQLConnectionHandler {
     private final SimplisticEconomy plugin;
     private final ConfigFile coreConfig;
     private HikariDataSource hikari;
+    private String dataSourceClassName = null;
 
     public MySQLConnectionHandler(SimplisticEconomy plugin) {
         this.coreConfig = plugin.getFileManager().getConfigFile();
@@ -22,10 +23,14 @@ public class MySQLConnectionHandler {
     }
 
     public void setupHikari() {
+        if (dataSourceClassName == null) tryDataSource("org.mariadb.jdbc.MariaDbDataSource");
+        if (dataSourceClassName == null) tryDataSource("com.mysql.cj.jdbc.MysqlDataSource");
+        if (dataSourceClassName == null) tryDataSource("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+
         hikari = new HikariDataSource();
         hikari.setMaximumPoolSize(8);
         hikari.setPoolName("SimplisticEconomy Connection Pool");
-        hikari.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+        hikari.setDataSourceClassName(dataSourceClassName);
         hikari.addDataSourceProperty("serverName", coreConfig.getString("storage.host"));
         hikari.addDataSourceProperty("port", coreConfig.getString("storage.port"));
         hikari.addDataSourceProperty("databaseName", coreConfig.getString("storage.database"));
@@ -42,6 +47,13 @@ public class MySQLConnectionHandler {
             plugin.getLogger().log(Level.SEVERE, "Failed to connected to mysql database");
             e.printStackTrace();
         }
+    }
+
+    private void tryDataSource(String className) {
+        try {
+            Class.forName(className);
+            dataSourceClassName = className;
+        } catch (ClassNotFoundException ignored) {}
     }
 
     public void closeHikari() {
